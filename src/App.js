@@ -7,6 +7,7 @@ class App extends React.Component {
 
   state = {
     data: {},
+    country: '',
   }
 
   async componentDidMount(){
@@ -14,17 +15,25 @@ class App extends React.Component {
   
     this.setState({data : fetchedData});
   }
+ 
+  CountryChage =  async(country) =>{
+    const fetchedData = await fetchData(country);
+    
+    this.setState = ({data: fetchedData, country: country});
+    console.log(fetchedData);
+  }
+ 
 render(){
-  const {data} = this.state;
+  const {data , country} = this.state;
   
   return (
     <div className={styles.container}>
       <Cards data = {data} />
-      <CountryList />
-      <Chart />  
+      <CountryList CountryChage = {this.CountryChage}  />
+      <Chart data = {data} country = {country}/>  
     </div>
   );
- }
+ }  
 }
 
 export default App;
